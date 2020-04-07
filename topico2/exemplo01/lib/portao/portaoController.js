@@ -12,18 +12,28 @@ class PortaoController {
     }
 
     abrir(tag) {
-        this.display.limpar();
-        if (tag === 'ERRO') {
-            this.display.mostrarMsg('Automovel nao possui TAG. Por favor voltar!');
-            return false;
-        }
+        if (tag === 'ERRO') return this.tratarSemTag();
 
         const auto = this.automovelDAO.getByTagName(tag);
-        if (auto === null) {
-            this.display.mostrarMsg('TAG desconhecida. Por favor, voltar!');
-            return false;
-        }
+        if (auto === null) return this.tratarTagDesconhecida();
 
+        return this.tratarTagConhecida(auto);
+    }
+
+    tratarSemTag() {
+        this.display.limpar();
+        this.display.mostrarMsg('Automovel nao possui TAG. Por favor voltar!');
+        return false;
+    }
+
+    tratarTagDesconhecida() {
+        this.display.limpar();
+        this.display.mostrarMsg('TAG desconhecida. Por favor, voltar!');
+        return false;
+    }
+
+    tratarTagConhecida(auto) {
+        this.display.limpar();
         this.display.mostrarMsg(`Bem-Vindo, ${auto.proprietario}!`);
         this.cancela.levantar();
         this.registroDAO.registrarEntrada(auto.placa, auto.proprietario);

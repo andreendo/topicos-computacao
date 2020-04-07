@@ -18,7 +18,7 @@ beforeEach(() => {
     AutomovelDAO.mockImplementation(() => {
         return {
             getByTagName: (tag) => {
-                if (tag == "azyx") return { placa: "ABC1234", proprietario: "Andre" };
+                if (tag == 'azyx') return { placa: 'ABC1234', proprietario: 'Andre' };
 
                 return null;
             }
@@ -26,39 +26,39 @@ beforeEach(() => {
     });
 });
 
-it("returns false for a tag ERRO", () => {
+it('returns false for a tag ERRO', () => {
     const controller = new PortaoController();
-    expect(controller.abrir("ERRO")).toBe(false);
+    expect(controller.abrir('ERRO')).toBe(false);
 
     const mockDisplayInstance = Display.mock.instances[0];
     expect(mockDisplayInstance.limpar).toHaveBeenCalledTimes(1);
     expect(mockDisplayInstance.mostrarMsg)
-        .toHaveBeenCalledWith("Automovel nao possui TAG. Por favor voltar!");
+        .toHaveBeenCalledWith('Automovel nao possui TAG. Por favor voltar!');
 });
 
-it("returns false for an unknown tag", () => {
+it('returns false for an unknown tag', () => {
     const controller = new PortaoController();
-    expect(controller.abrir("aaaa")).toBe(false);
+    expect(controller.abrir('aaaa')).toBe(false);
 
     const mockDisplayInstance = Display.mock.instances[0];
     expect(mockDisplayInstance.limpar).toHaveBeenCalledTimes(1);
     expect(mockDisplayInstance.mostrarMsg)
-        .toHaveBeenCalledWith("TAG desconhecida. Por favor, voltar!");
+        .toHaveBeenCalledWith('TAG desconhecida. Por favor, voltar!');
 });
 
-it("returns true for user andre", () => {
-    var controller = new PortaoController();
-    expect(controller.abrir("azyx")).toBe(true);
+it('returns true for user andre', () => {
+    const controller = new PortaoController();
+    expect(controller.abrir('azyx')).toBe(true);
 
     const mockDisplayInstance = Display.mock.instances[0];
     expect(mockDisplayInstance.limpar).toHaveBeenCalledTimes(1);
     expect(mockDisplayInstance.mostrarMsg)
-        .toHaveBeenCalledWith("Bem-Vindo, Andre!");
+        .toHaveBeenCalledWith('Bem-Vindo, Andre!');
 
     const mockCancela = Cancela.mock.instances[0];
     expect(mockCancela.levantar).toHaveBeenCalledTimes(1);
 
     const mockRegistroDAO = RegistroDAO.mock.instances[0];
     expect(mockRegistroDAO.registrarEntrada)
-        .toHaveBeenCalledWith("ABC1234", "Andre");
+        .toHaveBeenCalledWith('ABC1234', 'Andre');
 });

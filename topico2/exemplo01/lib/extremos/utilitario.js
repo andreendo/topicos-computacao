@@ -1,6 +1,6 @@
-const R = require('ramda');
+const { when, ifElse } = require('ramda');
 
-const reduceMaior = (mAtual, currentValue, currentIndex) => R.when(
+const reduceMaior = (mAtual, currentValue, currentIndex) => when(
     mAtual => currentValue > mAtual.maior,
     () => ({
         maior: currentValue,
@@ -8,7 +8,7 @@ const reduceMaior = (mAtual, currentValue, currentIndex) => R.when(
     })
 )(mAtual);
 
-const reduceMenor = (mAtual, currentValue, currentIndex) => R.when(
+const reduceMenor = (mAtual, currentValue, currentIndex) => when(
     mAtual => currentValue < mAtual.menor,
     () => ({
         menor: currentValue,
@@ -16,7 +16,7 @@ const reduceMenor = (mAtual, currentValue, currentIndex) => R.when(
     })
 )(mAtual);
 
-exports.acharExtremos = arr => R.ifElse(
+exports.acharExtremos = arr => ifElse(
     arr => arr == null || arr.length === 0,
     () => ({}),
     arr => ({
