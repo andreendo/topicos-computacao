@@ -1,28 +1,25 @@
-function acharExtremos(v) {
-    if (v == null) throw "vetor nao pode ser nulo";
+const R = require('ramda');
 
-    if (!v.length) throw "vetor nao pode ser vazio";
+exports.acharExtremos = function (v) {
+    if (v == null) return {};
 
-    const extremos = {
-        maior: v[0],
-        indiceMaior: 0,
-        menor: v[0],
-        indiceMenor: 0
-    };
+    if (!v.length) return {};
 
-    for (let i = 1; i < v.length; i++) {
-        if (v[i] > extremos.maior) {
-            extremos.maior = v[i];
-            extremos.indiceMaior = i;
+    const eMaior = v.reduce((mAtual, currentValue, currentIndex) => {
+        if (currentValue > mAtual.maior) {
+            return { maior: currentValue, indiceMaior: currentIndex };
         }
+        return mAtual;
+    },
+        { maior: v[0], indiceMaior: 0 });
 
-        if (v[i] < extremos.menor) {
-            extremos.menor = v[i];
-            extremos.indiceMenor = i;
+    const eMenor = v.reduce((mAtual, currentValue, currentIndex) => {
+        if (currentValue < mAtual.menor) {
+            return { menor: currentValue, indiceMenor: currentIndex };
         }
-    }
+        return mAtual;
+    },
+        { menor: v[0], indiceMenor: 0 });
 
-    return extremos;
+    return { ...eMaior, ...eMenor };
 }
-
-module.exports = acharExtremos;
