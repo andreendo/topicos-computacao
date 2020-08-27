@@ -9,4 +9,7 @@ fsp.readFile('f1.txt', 'utf-8')
     })
     .then((fileContent) => {
         console.log('Conteudo: ', fileContent);
+    })
+    .catch((err) => {
+        console.log(err);
     });
