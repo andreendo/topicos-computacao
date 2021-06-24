@@ -10,7 +10,7 @@ const fs = require('fs');
 const statP = util.promisify(fs.stat);
 
 async function main() {
-    const stats = await statP('./a.txt');
+    const stats = await statP('./package.json');
     console.log(stats);
 }
 
