@@ -26,9 +26,13 @@ describe('ArrayProcessor', () => {
         }).toThrow('array vazio');
     });
 
-    test('deve lancar excecao quando eh null', () => {
+    test('deve lancar excecao quando nao eh array', () => {
         expect(() => {
             p.process(null);
+        }).toThrow('tipo invalido');
+
+        expect(() => {
+            p.process({});
         }).toThrow('tipo invalido');
     });    
 });

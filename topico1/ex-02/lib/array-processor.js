@@ -1,7 +1,7 @@
 class ArrayProcessor {
 
     validate(arr) {
-        if (arr == null)
+        if (! Array.isArray(arr))
             throw 'tipo invalido';
 
         if (arr.length == 0)
